@@ -1,0 +1,92 @@
+/* Dashboard general */
+.CST_fullHeight {
+  height: 100vh;
+}
+
+/*Navbar custom button-like behaviour*/
+.CST_clickable {
+  cursor: pointer;
+}
+
+.CST_clickable:hover {
+  background-color: #2e63dd;
+  color: #fff;
+}
+
+.is-active .CST_clickable:hover {
+  color: #118fe4;
+  background-color: #fff;
+}
+
+/* Spaced Notification */
+.CST_frame {
+  border: 2px solid #222;
+  margin: 2rem 1rem;
+  padding: 2rem;
+}
+
+.is-danger.CST_frame,
+.is-success.CST_frame {
+  border: none;
+}
+
+/* Grid system - dashboard */
+.CST_main-grid {
+  display: grid;
+  grid:
+    [row1S] "add  list" [row1E]
+    [row2S] "remove list" [row2E]
+    [row2S] "other other" [row2E]
+    / minmax(360px, 1fr) 2fr;
+}
+
+.CST_add {
+  grid-area: add;
+  border: 1px solid salmon;
+
+  white-space: nowrap;
+}
+
+.CST_remove {
+  grid-area: remove;
+  border: 1px solid salmon;
+}
+
+.CST_list {
+  grid-area: list;
+  border: 1px solid salmon;
+
+  text-align: center;
+  padding: 1rem;
+}
+
+/*  Booklist flexitem  */
+.CST_flex-list {
+  display: flex;
+  flex-flow: column nowrap;
+
+  background-color: #84e140;
+  color: #222;
+}
+
+.CST_flex-list-item {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 10px;
+  border: 2px groove black;
+}
+
+.CST_flex-list-item.shared {
+  background-color: #14e120;
+}
+
+.CST_book-title {
+  flex: 1 0 100%;
+  background-color: #a4e180;
+  font: italic 1.2rem "Times new roman";
+  padding: 5px;
+}
+.CST_book-metadata {
+  flex: 1 0 100%;
+  padding: 2px;
+}
