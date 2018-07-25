@@ -15,6 +15,7 @@ import { logoutAction } from "../redux/actions/userActions";
 import BookInsertion from "./forms/BookInsertion";
 import BookRemover from "./forms/BookRemover";
 import BookList from "./BookList";
+import RequestPanel from "./RequestPanel";
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -45,6 +46,9 @@ class Dashboard extends Component {
           </div>
           <div className="CST_list">
             <BookList books={books} />
+          </div>
+          <div className="CST_request">
+            <RequestPanel />
           </div>
         </div>
       </div>

@@ -34,9 +34,9 @@
 .CST_main-grid {
   display: grid;
   grid:
-    [row1S] "add  list" [row1E]
-    [row2S] "remove  list" [row2E]
-    [row2S] "other  other" [row2E]
+    [row1S] "add  list" 30vh [row1E]
+    [row2S] "remove  list" 30vh [row2E]
+    [row2S] "request  request" [row2E]
     / minmax(360px, 1fr) 2fr;
 }
 
@@ -58,6 +58,7 @@
 
   text-align: center;
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .CST_request {
@@ -78,10 +79,16 @@
   flex-flow: row wrap;
   margin: 10px;
   border: 2px groove black;
+
+  cursor: pointer;
 }
 
-.CST_flex-list-item.shared {
+.CST_flex-list-item.CST_shared {
   background-color: #14e120;
+}
+
+.CST_placeholder .CST_book-title {
+  background-color: #ded;
 }
 
 .CST_book-title {
@@ -107,4 +114,8 @@
   padding: 1rem;
   font-size: 0.75rem;
   font-weight: bold;
+}
+
+/* request panel  */
+.CST_is-horizontal {
 }
