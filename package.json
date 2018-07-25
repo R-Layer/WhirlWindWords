@@ -1,7 +1,7 @@
 {
   "name": "whirlwindwords",
   "version": "1.0.0",
-  "description": "",
+  "description": "a booksharing platform",
   "main": "server.js",
   "engines": {
     "node": "10.5.0"

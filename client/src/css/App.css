@@ -35,8 +35,8 @@
   display: grid;
   grid:
     [row1S] "add  list" [row1E]
-    [row2S] "remove list" [row2E]
-    [row2S] "other other" [row2E]
+    [row2S] "remove  list" [row2E]
+    [row2S] "other  other" [row2E]
     / minmax(360px, 1fr) 2fr;
 }
 
@@ -58,6 +58,10 @@
 
   text-align: center;
   padding: 1rem;
+}
+
+.CST_request {
+  grid-area: request;
 }
 
 /*  Booklist flexitem  */
@@ -89,4 +93,18 @@
 .CST_book-metadata {
   flex: 1 0 100%;
   padding: 2px;
+}
+
+/* Library card item */
+.CST_is-opposed {
+  justify-content: space-between;
+}
+
+.CST_is-distributed {
+  justify-content: space-around;
+}
+.CST_title-date {
+  padding: 1rem;
+  font-size: 0.75rem;
+  font-weight: bold;
 }
