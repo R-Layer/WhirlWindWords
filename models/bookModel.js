@@ -34,4 +34,8 @@ const bookSchema = new Schema(
   }
 );
 
+bookSchema.statics.inExchange = function(bookId, extId, cb) {
+  return Book.findByIdAndUpdate(bookId, { [bookStatus.applicants]: extId }, cb);
+};
+
 module.exports = mongoose.model("Book", bookSchema);

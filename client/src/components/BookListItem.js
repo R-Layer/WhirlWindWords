@@ -3,10 +3,12 @@ import React from "react";
 import moment from "moment";
 
 export default props => {
-  const { book } = props;
+  const { book, selectItem } = props;
   const storeDate = moment(book.createdAt).format("Do MMMM YYYY HH:mm:ss");
   return (
     <div
+      onClick={selectItem}
+      id={book._id}
       className={`CST_flex-list-item ${
         book.bookStatus.exchangeable ? "CST_shared" : ""
       } ${book._id ? "" : "CST_placeholder"}`}

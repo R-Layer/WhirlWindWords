@@ -5,8 +5,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { logoutAction } from "../redux/actions/userActions";
-import { getBooksAction } from "../redux/actions/bookActions";
+import {
+  getBooksAction,
+  insertBookAction,
+  removeBookAction
+} from "../redux/actions/bookActions";
 
+import BookInsertion from "./forms/BookInsertion";
+import BookRemover from "./forms/BookRemover";
 import Navbar from "./Navbar";
 import Book from "./Book";
 
@@ -15,8 +21,15 @@ class Library extends Component {
     this.props.getBooks();
   }
 
+  addBook = bookInfo => {
+    this.props.insertBook(bookInfo).then(() => this.props.getBooks());
+  };
+
+  removeBook = bookTitle => {
+    this.props.removeBook(bookTitle).then(() => this.props.getBooks());
+  };
   render() {
-    const { auth, books, logout } = this.props;
+    const { auth, books, errors, logout } = this.props;
     const ownBooks = books.filter(book => book.owner._id === auth.user.id);
 
     return (
@@ -24,6 +37,14 @@ class Library extends Component {
         <Navbar isAuthenticated={auth.isAuthenticated} logout={logout} />
         <h1 className="title">Library</h1>
         <section className="section">
+          <div className="columns">
+            <div className="column is-8 CST_add">
+              <BookInsertion addBook={this.addBook} errors={errors} />
+            </div>
+            <div className="column is-4 CST_remove">
+              <BookRemover removeBook={this.removeBook} ownBooks={ownBooks} />
+            </div>
+          </div>
           {ownBooks.map(book => <Book bookInfo={book} key={book._id} />)}
         </section>
       </div>
@@ -35,7 +56,9 @@ Library.propTypes = {
   auth: PropTypes.object.isRequired,
   books: PropTypes.array.isRequired,
   errors: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  insertBook: PropTypes.func.isRequired,
+  removeBook: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -46,7 +69,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getBooks: () => dispatch(getBooksAction()),
-  logout: () => dispatch(logoutAction())
+  logout: () => dispatch(logoutAction()),
+  insertBook: bookTitle => dispatch(insertBookAction(bookTitle)),
+  removeBook: bookTitle => dispatch(removeBookAction(bookTitle))
 });
 
 export default connect(

@@ -41,7 +41,7 @@ class BookInsertion extends Component {
 
     return (
       <form className="section" onSubmit={this.onSubmit} noValidate>
-        <label className="label">Share a book</label>
+        <label className="label">Share your books!</label>
         <div className="field has-addons">
           <div className="control is-expanded">
             <input

@@ -4,14 +4,14 @@ import BookListItem from "./BookListItem";
 
 class RequestPanel extends Component {
   render() {
-    let state = undefined;
-    const bookToGive = state || {
+    const { requests } = this.props;
+    const bookToGive = {
       createdAt: new Date("1970"),
       bookStatus: { exchangeable: false },
-      title: "choose a book from the list above",
+      title: "choose a book from the list below",
       owner: { name: "" }
     };
-    const bookToAsk = state || {
+    const bookToAsk = {
       createdAt: new Date("1970"),
       bookStatus: { exchangeable: false },
       title: "select a book to give in exchange",
@@ -19,14 +19,20 @@ class RequestPanel extends Component {
     };
     return (
       <div className="columns is-multiline">
-        <div className="column is-12">
-          <h1 className="has-text-centered">Request panel</h1>
+        <div className="column is-6 CST_panel-window">
+          <BookListItem
+            book={requests.ext._id ? requests.ext : bookToGive}
+            selectItem={this.props.selectItem}
+          />
         </div>
-        <div className="column is-6">
-          <BookListItem book={bookToGive} />
+        <div className="column is-6 CST_panel-window">
+          <BookListItem
+            book={requests.own._id ? requests.own : bookToAsk}
+            selectItem={this.props.selectItem}
+          />
         </div>
-        <div className="column is-6">
-          <BookListItem book={bookToAsk} />
+        <div className="column is-12 CST_panel-footer">
+          <button>Submit request</button>
         </div>
       </div>
     );

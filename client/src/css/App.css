@@ -34,30 +34,15 @@
 .CST_main-grid {
   display: grid;
   grid:
-    [row1S] "add  list" 30vh [row1E]
-    [row2S] "remove  list" 30vh [row2E]
-    [row2S] "request  request" [row2E]
+    [row1S] "request request " [row1E]
+    [row2S] " list list " 60vh[row2E]
     / minmax(360px, 1fr) 2fr;
-}
-
-.CST_add {
-  grid-area: add;
-  border: 1px solid salmon;
-
-  white-space: nowrap;
-}
-
-.CST_remove {
-  grid-area: remove;
-  border: 1px solid salmon;
+  grid-gap: 12px;
 }
 
 .CST_list {
   grid-area: list;
-  border: 1px solid salmon;
-
   text-align: center;
-  padding: 1rem;
   overflow-y: auto;
 }
 
@@ -83,6 +68,10 @@
   cursor: pointer;
 }
 
+.CST_flex-list-item:first-child {
+  margin-top: 2rem;
+}
+
 .CST_flex-list-item.CST_shared {
   background-color: #14e120;
 }
@@ -103,6 +92,14 @@
 }
 
 /* Library card item */
+.CST_add {
+  white-space: nowrap;
+}
+
+.CST_remove {
+  white-space: nowrap;
+}
+
 .CST_is-opposed {
   justify-content: space-between;
 }
@@ -117,5 +114,20 @@
 }
 
 /* request panel  */
-.CST_is-horizontal {
+.CST_panel-header {
+  text-align: center;
+  background-color: #811;
+  color: #fff;
+}
+
+.CST_panel-window {
+  background-color: #84e140;
+}
+.CST_panel-window.CST_disabled {
+  background-color: #ccc;
+}
+
+.CST_panel-footer {
+  text-align: center;
+  background-color: #84e140;
 }

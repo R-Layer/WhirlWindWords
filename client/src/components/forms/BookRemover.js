@@ -31,10 +31,10 @@ class BookRemover extends Component {
               <select
                 name="title"
                 onChange={this.onChange}
-                defaultValue="Select a book to remove"
+                defaultValue="Drop a book"
               >
                 <option value="" hidden>
-                  Select a book to remove
+                  Drop a book
                 </option>
                 {this.props.ownBooks.map(book => (
                   <option key={book._id}>{book.title}</option>

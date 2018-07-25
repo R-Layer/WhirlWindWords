@@ -30,3 +30,9 @@ export const fetchBooksProcess = {
   ADDITION: "FETCH_BOOKS_ADDITION",
   REMOVAL: "FETCH_BOOKS_REMOVAL"
 };
+
+export const setupRequest = {
+  SELECTED_EXT: "SELECTED_EXT",
+  SELECTED_OWN: "SELECTED_OWN",
+  CLEAR_SETUP: "CLEAR_SETUP"
+};

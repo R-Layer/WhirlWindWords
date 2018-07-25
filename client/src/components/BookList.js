@@ -7,7 +7,11 @@ class BookList extends Component {
     return (
       <div className="CST_flex-list">
         {this.props.books.map(book => (
-          <BookListItem key={book._id} book={book} />
+          <BookListItem
+            key={book._id}
+            book={book}
+            selectItem={this.props.selectItem}
+          />
         ))}
       </div>
     );
