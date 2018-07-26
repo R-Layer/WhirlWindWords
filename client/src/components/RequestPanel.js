@@ -32,7 +32,7 @@ class RequestPanel extends Component {
           />
         </div>
         <div className="column is-12 CST_panel-footer">
-          <button>Submit request</button>
+          <button onClick={this.props.submitRequest}>Submit request</button>
         </div>
       </div>
     );

@@ -13,6 +13,7 @@ import {
 
 import BookInsertion from "./forms/BookInsertion";
 import BookRemover from "./forms/BookRemover";
+import Requests from "./Requests";
 import Navbar from "./Navbar";
 import Book from "./Book";
 
@@ -36,7 +37,7 @@ class Library extends Component {
       <div>
         <Navbar isAuthenticated={auth.isAuthenticated} logout={logout} />
         <h1 className="title">Library</h1>
-        <section className="section">
+        <section id="books" className="section">
           <div className="columns">
             <div className="column is-8 CST_add">
               <BookInsertion addBook={this.addBook} errors={errors} />
@@ -46,6 +47,9 @@ class Library extends Component {
             </div>
           </div>
           {ownBooks.map(book => <Book bookInfo={book} key={book._id} />)}
+        </section>
+        <section id="requests" className="section">
+          <Requests books={books} />
         </section>
       </div>
     );

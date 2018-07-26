@@ -55,7 +55,7 @@ export default props => {
         </div>
         <ul>
           {bookInfo.bookStatus.applicants.map(applicant => (
-            <li>{applicant}</li>
+            <li key={applicant._id}>{applicant.name}</li>
           ))}
         </ul>
       </div>

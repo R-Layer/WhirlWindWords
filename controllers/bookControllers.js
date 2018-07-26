@@ -1,10 +1,9 @@
 const Book = require("../models/bookModel");
 
 exports.books_get_all = (req, res) => {
-  const user = req.app.locals.userAuth;
-
   Book.find({})
     .populate("owner", "name")
+    .populate("bookStatus.applicants", "name")
     .exec()
     .then(books => res.status(200).json(books))
     .catch(err => res.status(500).json(err));
@@ -48,5 +47,13 @@ exports.books_remove_one = (req, res) => {
     .then(delOp => {
       res.status(200).json(delOp);
     })
+    .catch(err => res.status(500).json(err));
+};
+
+exports.books_change_state = (req, res) => {
+  Book.findByIdAndUpdate(req.body.bookId, {
+    $push: { "bookStatus.applicants": req.app.locals.userAuth.id }
+  })
+    .then(requested => res.status(200).json(requested))
     .catch(err => res.status(500).json(err));
 };

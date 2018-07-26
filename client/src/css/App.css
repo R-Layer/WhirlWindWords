@@ -131,3 +131,9 @@
   text-align: center;
   background-color: #84e140;
 }
+
+/*  Request library panel*/
+.CST_bordered {
+  /*   border: 1px solid #111; */
+  text-align: center;
+}

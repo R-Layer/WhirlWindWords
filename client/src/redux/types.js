@@ -36,3 +36,9 @@ export const setupRequest = {
   SELECTED_OWN: "SELECTED_OWN",
   CLEAR_SETUP: "CLEAR_SETUP"
 };
+
+export const fetchRequestProcess = {
+  REQUEST: "FETCH_REQUEST_PROCESS",
+  REFRESH: "FETCH_REQUEST_SUCCESS",
+  CREATION: "FETCH_REQUEST_SUCCESS"
+};
