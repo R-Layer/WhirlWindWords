@@ -8,6 +8,7 @@ import { logoutAction } from "../redux/actions/userActions";
 import {
   getBooksAction,
   insertBookAction,
+  updateBookAction,
   removeBookAction
 } from "../redux/actions/bookActions";
 
@@ -33,6 +34,10 @@ class Library extends Component {
     this.props.insertBook(bookInfo).then(() => this.props.getBooks());
   };
 
+  updateBook = (bookInfo, bookId) => {
+    this.props.updateBook(bookInfo, bookId).then(() => this.props.getBooks());
+  };
+
   removeBook = bookTitle => {
     this.props.removeBook(bookTitle).then(() => this.props.getBooks());
   };
@@ -45,15 +50,14 @@ class Library extends Component {
     this.props.rejectRequest(id);
   };
   render() {
-    console.log("requests", this.props.requests);
-    const { auth, books, errors, logout } = this.props;
+    const { auth, books, requests, errors, logout } = this.props;
     const ownBooks = books.filter(book => book.owner._id === auth.user.id);
     return (
       <div>
         <Navbar isAuthenticated={auth.isAuthenticated} logout={logout} />
         <h1 className="title">Library</h1>
         <ul>
-          {this.props.requests.map(request => (
+          {requests.filter(el => el.active === true).map(request => (
             <li key={request._id}>
               {request.bookIn.title} - {request.bookOut.title} -{" "}
               <button onClick={() => this.acceptRequest(request._id)}>
@@ -74,10 +78,17 @@ class Library extends Component {
               <BookRemover removeBook={this.removeBook} ownBooks={ownBooks} />
             </div>
           </div>
-          {ownBooks.map(book => <Book bookInfo={book} key={book._id} />)}
+          {ownBooks.map(book => (
+            <Book
+              bookInfo={book}
+              key={book._id}
+              errors={errors}
+              updateBook={this.updateBook}
+            />
+          ))}
         </section>
         <section id="requests" className="section">
-          <Requests books={books} />
+          <Requests requests={requests} user={auth.user} />
         </section>
       </div>
     );
@@ -90,6 +101,7 @@ Library.propTypes = {
   errors: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   insertBook: PropTypes.func.isRequired,
+  updateBook: PropTypes.func.isRequired,
   removeBook: PropTypes.func.isRequired,
   getRequests: PropTypes.func.isRequired
 };
@@ -106,6 +118,8 @@ const mapDispatchToProps = dispatch => ({
   getRequests: () => dispatch(getRequestsAction()),
   logout: () => dispatch(logoutAction()),
   insertBook: bookTitle => dispatch(insertBookAction(bookTitle)),
+  updateBook: (bookInfo, bookId) =>
+    dispatch(updateBookAction(bookInfo, bookId)),
   removeBook: bookTitle => dispatch(removeBookAction(bookTitle)),
   acceptRequest: reqId => dispatch(updateRequestAction(reqId)),
   rejectRequest: reqId => dispatch(deleteRequestAction(reqId))

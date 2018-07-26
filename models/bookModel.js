@@ -18,8 +18,8 @@ const bookSchema = new Schema(
         default: false
       },
       exchanged: {
-        type: Boolean,
-        default: false
+        type: Date,
+        default: null
       },
       applicants: [
         {

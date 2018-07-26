@@ -91,6 +91,11 @@ const validator = (req, res, next) => {
       dataToValidate = null;
       break;
   }
+
+  if (/modify/.test(req.url)) {
+    dataToValidate = bookTitleValidator;
+  }
+
   joi.validate(req.body, dataToValidate, (err, value) => {
     if (err) {
       res.status(422).json({

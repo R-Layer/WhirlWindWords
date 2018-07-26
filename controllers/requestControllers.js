@@ -3,8 +3,8 @@ const Request = require("../models/requestModel");
 
 exports.requests_get_all = (req, res) => {
   Request.find({})
-    .populate("bookIn", "title")
-    .populate("bookOut", "title")
+    .populate("bookIn", "title owner")
+    .populate("bookOut", "title owner")
     .exec()
     .then(requests => res.status(200).json(requests))
     .catch(err => res.status(500).json(err));
@@ -24,7 +24,7 @@ exports.requests_create_one = (req, res) => {
         })
           .save()
           .then(createdRequest => {
-            books_change_state(
+            books_addApplicant(
               createdRequest.bookIn,
               req.app.locals.userAuth.id
             );
@@ -42,6 +42,7 @@ exports.requests_delete_one = (req, res) => {
     .exec()
     .then(delReq => {
       if (delReq) {
+        books_removeApplicant(delReq.bookIn, delReq.bookOut.owner);
         res.status(200).json(delReq);
       } else {
         res.status(404).json({ err: { message: "Request not found" } });
@@ -55,6 +56,8 @@ exports.requests_update_one = (req, res) => {
     .exec()
     .then(okReq => {
       if (okReq) {
+        books_resetOnExchange(okReq.bookIn, okReq.bookOut.owner);
+        books_resetOnExchange(okReq.bookOut, okReq.bookIn.owner);
         res.status(200).json(okReq);
       } else {
         res.status(404).json({ err: { message: "Request not found" } });
@@ -63,8 +66,24 @@ exports.requests_update_one = (req, res) => {
     .catch(err => res.status(500).json(err));
 };
 
-books_change_state = (bookId, userId) => {
+books_addApplicant = (bookId, userId) => {
   Book.findByIdAndUpdate(bookId, {
     $push: { "bookStatus.applicants": userId }
+  });
+};
+
+books_removeApplicant = (bookId, userId) => {
+  Book.findByIdAndUpdate(bookId, {
+    $pull: { "bookStatus.applicants": userId }
+  });
+};
+
+books_resetOnExchange = (bookId, userId) => {
+  Book.findByIdAndUpdate(bookId, {
+    $set: {
+      "bookStatus.applicants": [],
+      "bookStatus.exchanged": Date.now,
+      owner: userId
+    }
   });
 };

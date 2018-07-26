@@ -6,6 +6,8 @@ import PropTypes from "prop-types";
 
 import { updateAction } from "../../redux/actions/userActions";
 
+import { failProcess } from "../../redux/types";
+
 class EditUser extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +23,7 @@ class EditUser extends Component {
   }
 
   componentDidMount() {
+    this.props.clearErrors();
     this.setState({
       name: this.props.user.name,
       email: this.props.user.email,
@@ -247,7 +250,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateUser: userData => dispatch(updateAction(userData))
+  updateUser: userData => dispatch(updateAction(userData)),
+  clearErrors: () => dispatch({ type: failProcess.CLEAR })
 });
 
 export default connect(

@@ -8,6 +8,8 @@ export const bookReducer = (state = [], action) => {
       return [...state, action.newBook.bookCreated];
     case fetchBooksProcess.REMOVAL:
       return state.filter(book => book._id !== action.delOp._id);
+    case fetchBooksProcess.UPDATE:
+      return state;
     default:
       return state;
   }

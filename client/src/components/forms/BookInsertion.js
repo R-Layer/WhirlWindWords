@@ -80,6 +80,7 @@ class BookInsertion extends Component {
 }
 
 BookInsertion.propTypes = {
+  errors: PropTypes.object.isRequired,
   addBook: PropTypes.func.isRequired
 };
 

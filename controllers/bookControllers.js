@@ -50,10 +50,23 @@ exports.books_remove_one = (req, res) => {
     .catch(err => res.status(500).json(err));
 };
 
-exports.books_change_state = (req, res) => {
-  Book.findByIdAndUpdate(req.body.bookId, {
-    $push: { "bookStatus.applicants": req.app.locals.userAuth.id }
-  })
-    .then(requested => res.status(200).json(requested))
+exports.books_update_one = (req, res) => {
+  const user = req.app.locals.userAuth;
+  Book.findOneAndUpdate(
+    { _id: req.params.bookId, owner: user.id },
+    {
+      $set: {
+        title: req.body.title,
+        "bookStatus.exchangeable": req.body.exchangeable
+      }
+    }
+  )
+    .then(updBook => {
+      if (updBook) {
+        res.status(200).json(updBook);
+      } else {
+        res.status(404).json({ err: { message: "Book not found" } });
+      }
+    })
     .catch(err => res.status(500).json(err));
 };
