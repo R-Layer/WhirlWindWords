@@ -10,7 +10,7 @@ const requestSchema = new Schema(
     },
     bookOut: {
       type: Schema.Types.ObjectId,
-      required: "Book"
+      ref: "Book"
     },
     active: {
       type: Boolean,

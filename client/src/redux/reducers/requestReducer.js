@@ -16,10 +16,16 @@ export const requestStatusReducer = (state = initState, action) => {
 
 export const requestFetchReducer = (state = [], action) => {
   switch (action.type) {
-    case fetchRequestProcess.SUCCESS:
+    case fetchRequestProcess.REFRESH:
       return action.requests;
     case fetchRequestProcess.CREATION:
       return [...action.requests, action.requestCreated];
+    case fetchRequestProcess.REJECT:
+      return state.filter(
+        request => request._id !== action.requestRejected._id
+      );
+    case fetchRequestProcess.ACCEPT:
+      return state;
     default:
       return state;
   }
