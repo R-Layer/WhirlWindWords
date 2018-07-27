@@ -17,6 +17,10 @@ const bookSchema = new Schema(
         type: Boolean,
         default: false
       },
+      pending: {
+        type: Boolean,
+        default: false
+      },
       exchanged: {
         type: Date,
         default: null

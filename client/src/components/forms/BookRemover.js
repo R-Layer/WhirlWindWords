@@ -24,7 +24,7 @@ class BookRemover extends Component {
   render() {
     return (
       <form className="section" onSubmit={this.onSubmit} noValidate>
-        <label className="label">Remove a book</label>
+        <label className="label has-text-justified">Remove a book</label>
         <div className="field has-addons">
           <div className="control is-expanded">
             <div className="select is-fullwidth">

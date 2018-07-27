@@ -7,13 +7,13 @@ class RequestPanel extends Component {
     const { requests } = this.props;
     const bookToGive = {
       createdAt: new Date("1970"),
-      bookStatus: { exchangeable: false },
+      bookStatus: { exchangeable: false, applicants: [] },
       title: "choose a book from the list below",
       owner: { name: "" }
     };
     const bookToAsk = {
       createdAt: new Date("1970"),
-      bookStatus: { exchangeable: false },
+      bookStatus: { exchangeable: false, applicants: [] },
       title: "select a book to give in exchange",
       owner: { name: "" }
     };
@@ -32,7 +32,12 @@ class RequestPanel extends Component {
           />
         </div>
         <div className="column is-12 CST_panel-footer">
-          <button onClick={this.props.submitRequest}>Submit request</button>
+          <button
+            onClick={this.props.submitRequest}
+            disabled={requests.own._id && requests.ext._id ? "" : "disabled"}
+          >
+            Submit request
+          </button>
         </div>
       </div>
     );

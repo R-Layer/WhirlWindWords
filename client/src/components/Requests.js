@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import PropTypes from "prop-types";
 
-import RequestPane from "./RequestPane";
+import RequestInfo from "./RequestInfo";
 
 class Requests extends Component {
   render() {
@@ -17,18 +17,18 @@ class Requests extends Component {
     return (
       <div className="CST_bordered">
         <h3 className="title is-3">Requests</h3>
-        <div className="columns CST_is-distributed">
-          <div className="column is-4 CST_bordered ">
+        <div className="columns is-gapless">
+          <div className="column is-4 ">
             <h6 className="title is-6">Pending requests - submitted</h6>
-            <RequestPane requestArray={requestsDone} />
+            <RequestInfo requestArray={requestsDone} />
           </div>
-          <div className="column is-4 CST_bordered ">
+          <div className="column is-4  ">
             <h6 className="title is-6">Pending requests - received</h6>
-            <RequestPane requestArray={requestsReceived} />
+            <RequestInfo requestArray={requestsReceived} />
           </div>
-          <div className="column is-4 CST_bordered ">
+          <div className="column is-4  ">
             <h6 className="title is-6">Settled exchange</h6>
-            <RequestPane requestArray={requestsSettled} />
+            <RequestInfo requestArray={requestsSettled} />
           </div>
         </div>
       </div>

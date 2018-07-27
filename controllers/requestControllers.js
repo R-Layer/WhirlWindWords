@@ -17,7 +17,7 @@ exports.requests_create_one = (req, res) => {
       { bookIn: req.body.bookOut, bookOut: req.body.bookIn }
     ])
     .then(request => {
-      if (request.length === 0) {
+      if (request.length === 0 || request.every(el => el.active === false)) {
         newRequest = new Request({
           bookIn: req.body.bookIn,
           bookOut: req.body.bookOut
@@ -53,9 +53,12 @@ exports.requests_delete_one = (req, res) => {
 
 exports.requests_update_one = (req, res) => {
   Request.findByIdAndUpdate(req.body.reqToAccept, { active: false })
+    .populate("bookIn", "owner")
+    .populate("bookOut", "owner")
     .exec()
     .then(okReq => {
       if (okReq) {
+        requests_resetOnExchange(okReq.bookIn, okReq.bookOut);
         books_resetOnExchange(okReq.bookIn, okReq.bookOut.owner);
         books_resetOnExchange(okReq.bookOut, okReq.bookIn.owner);
         res.status(200).json(okReq);
@@ -69,21 +72,43 @@ exports.requests_update_one = (req, res) => {
 books_addApplicant = (bookId, userId) => {
   Book.findByIdAndUpdate(bookId, {
     $push: { "bookStatus.applicants": userId }
-  });
+  }).then(appAdd => appAdd);
 };
 
 books_removeApplicant = (bookId, userId) => {
   Book.findByIdAndUpdate(bookId, {
     $pull: { "bookStatus.applicants": userId }
-  });
+  }).then(appRem => appRem);
 };
 
 books_resetOnExchange = (bookId, userId) => {
   Book.findByIdAndUpdate(bookId, {
     $set: {
       "bookStatus.applicants": [],
-      "bookStatus.exchanged": Date.now,
+      "bookStatus.exchanged": Date.now(),
       owner: userId
     }
   });
+};
+
+requests_resetOnExchange = (bookIn, bookOut) => {
+  Request.find()
+    .or([
+      { bookIn, active: true },
+      { bookOut, active: true },
+      { bookIn: bookOut, active: true },
+      { bookOut: bookIn, active: true }
+    ])
+    .then(oldRequests => {
+      if (oldRequests.length === 0) {
+        return;
+      } else {
+        oldRequests.forEach(oldReq =>
+          Request.findByIdAndRemove(oldReq._id).then(
+            removedRequest => removedRequest
+          )
+        );
+        return;
+      }
+    });
 };

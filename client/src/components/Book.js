@@ -28,12 +28,14 @@ class Book extends React.Component {
     const { bookInfo, errors } = this.props;
     return (
       <div className="card">
-        <header className="card-header CST_is-opposed">
+        <header className="card-header">
           <p className="card-header-title">{bookInfo.title}</p>
-          <button onClick={this.onEdit}>edit</button>
           <time className="CST_title-date">
             {moment(bookInfo.createdAt).format("Do MMMM YYYY HH:mm:ss")}
           </time>
+          <span onClick={this.onEdit} className="button is-info">
+            edit
+          </span>
         </header>
         <div className="card-content">
           <div className="field is-horizontal CST_is-distributed">

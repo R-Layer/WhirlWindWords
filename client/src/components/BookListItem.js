@@ -5,16 +5,18 @@ import moment from "moment";
 export default props => {
   const { book, selectItem } = props;
   const storeDate = moment(book.createdAt).format("Do MMMM YYYY HH:mm:ss");
+  let backColor = book.bookStatus.exchangeable ? "CST_shared" : "CST_stored";
+  if (book.bookStatus.applicants.length > 0) {
+    backColor = "CST_pending";
+  }
   return (
     <div
       onClick={selectItem}
       id={book._id}
-      className={`CST_flex-list-item ${
-        book.bookStatus.exchangeable ? "CST_shared" : ""
-      } ${book._id ? "" : "CST_placeholder"}`}
+      className={`CST_flex-list-item ${book._id ? "" : "CST_placeholder"}`}
     >
       <p className="CST_book-title">{book.title}</p>
-      <p className="CST_book-metadata">
+      <p className={`CST_book-metadata ${backColor}`}>
         {book._id && (
           <small>
             Inserted by <strong>{book.owner.name}</strong> on {storeDate}

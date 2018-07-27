@@ -20,6 +20,7 @@ import {
 
 import BookInsertion from "./forms/BookInsertion";
 import BookRemover from "./forms/BookRemover";
+import PendingRequest from "./PendingRequest";
 import Requests from "./Requests";
 import Navbar from "./Navbar";
 import Book from "./Book";
@@ -43,7 +44,10 @@ class Library extends Component {
   };
 
   acceptRequest = id => {
-    this.props.acceptRequest(id);
+    this.props
+      .acceptRequest(id)
+      .then(() => this.props.getBooks())
+      .then(() => this.props.getRequests());
   };
 
   rejectRequest = id => {
@@ -55,22 +59,19 @@ class Library extends Component {
     return (
       <div>
         <Navbar isAuthenticated={auth.isAuthenticated} logout={logout} />
-        <h1 className="title">Library</h1>
-        <ul>
-          {requests.filter(el => el.active === true).map(request => (
-            <li key={request._id}>
-              {request.bookIn.title} - {request.bookOut.title} -{" "}
-              <button onClick={() => this.acceptRequest(request._id)}>
-                Accept
-              </button>{" "}
-              <button onClick={() => this.rejectRequest(request._id)}>
-                Reject
-              </button>
-            </li>
+        {requests
+          .filter(el => el.active && el.bookOut.owner !== auth.user.id)
+          .map(request => (
+            <PendingRequest
+              request={request}
+              key={request._id}
+              accept={() => this.acceptRequest(request._id)}
+              decline={() => this.rejectRequest(request._id)}
+            />
           ))}
-        </ul>
-        <section id="books" className="section">
-          <div className="columns">
+        <section id="books" className="CST_bordered">
+          <h3 className="title is-3 ">Books</h3>
+          <div className="columns is-gapless CST_add-remove">
             <div className="column is-8 CST_add">
               <BookInsertion addBook={this.addBook} errors={errors} />
             </div>
@@ -87,7 +88,7 @@ class Library extends Component {
             />
           ))}
         </section>
-        <section id="requests" className="section">
+        <section id="requests" className="">
           <Requests requests={requests} user={auth.user} />
         </section>
       </div>

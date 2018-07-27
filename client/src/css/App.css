@@ -50,12 +50,12 @@
   grid-area: request;
 }
 
-/*  Booklist flexitem  */
+/*  Dashboard - Booklist flexitem  */
 .CST_flex-list {
   display: flex;
   flex-flow: column nowrap;
 
-  background-color: #84e140;
+  /*  background-color: #84e140; */
   color: #222;
 }
 
@@ -72,18 +72,14 @@
   margin-top: 2rem;
 }
 
-.CST_flex-list-item.CST_shared {
-  background-color: #14e120;
-}
-
 .CST_placeholder .CST_book-title {
   background-color: #ded;
 }
 
 .CST_book-title {
   flex: 1 0 100%;
-  background-color: #a4e180;
-  font: italic 1.2rem "Times new roman";
+  background-color: #99d;
+  font: italic 1.4rem "Times new roman";
   padding: 5px;
 }
 .CST_book-metadata {
@@ -91,7 +87,41 @@
   padding: 2px;
 }
 
-/* Library card item */
+.CST_book-metadata.CST_stored {
+  background-color: #ddd;
+}
+
+.CST_book-metadata.CST_shared {
+  background-color: #8e8;
+}
+
+.CST_book-metadata.CST_pending {
+  background-color: #dd5;
+}
+/*  Dashboard - request panel  */
+.CST_panel-header {
+  text-align: center;
+  background-color: #811;
+  color: #fff;
+}
+
+.CST_panel-window.CST_disabled {
+  background-color: #ccc;
+}
+
+.CST_panel-footer {
+  text-align: center;
+  /*  background-color: #84e140; */
+}
+
+/* Library - book card item */
+.CST_add-remove {
+  background-color: #eee;
+  border-width: 1px 0;
+  border-color: #222;
+  border-style: solid;
+}
+
 .CST_add {
   white-space: nowrap;
 }
@@ -107,33 +137,76 @@
 .CST_is-distributed {
   justify-content: space-around;
 }
+
+.card-header {
+  background-color: #a4a;
+}
+
 .CST_title-date {
   padding: 1rem;
   font-size: 0.75rem;
   font-weight: bold;
+  color: #222;
 }
 
-/* request panel  */
-.CST_panel-header {
-  text-align: center;
-  background-color: #811;
-  color: #fff;
-}
-
-.CST_panel-window {
-  background-color: #84e140;
-}
-.CST_panel-window.CST_disabled {
-  background-color: #ccc;
-}
-
-.CST_panel-footer {
-  text-align: center;
-  background-color: #84e140;
-}
-
-/*  Request library panel*/
+/*  Library - request info panel*/
 .CST_bordered {
-  /*   border: 1px solid #111; */
   text-align: center;
+}
+
+.CST_bordered .title.is-3 {
+  background-color: #ccc;
+  color: #222;
+
+  padding: 1rem;
+  margin: 1rem 0;
+
+  border-width: 1px 0;
+  border-color: #222;
+  border-style: solid;
+}
+
+.CST_bordered .title.is-6 {
+  background-color: #222;
+  color: #ccc;
+  padding: 1rem;
+  margin: 0;
+}
+
+.CST_request-info-panel {
+  border: 1px solid #222;
+  background-color: #eee;
+  height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.CST_request-info-item {
+  border: 1px solid #aaa;
+}
+
+.CST_request-title {
+  background-color: #ccc;
+  text-align: left;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+/* Library - notification */
+.notification.is-warning.has-text-centered {
+  border: 2px solid #aa2;
+  border-radius: 30px;
+  margin: 2rem 1rem;
+}
+
+.CST_notification-label {
+  font: 600 0.75rem Monospace;
+  color: #111;
+}
+
+.CST_notification-footer {
+  display: flex;
+  justify-content: space-evenly;
 }

@@ -26,6 +26,9 @@ class BookInsertion extends Component {
     e.preventDefault();
 
     this.props.addBook(this.state);
+    this.setState({
+      title: ""
+    });
   };
 
   render() {
@@ -41,7 +44,7 @@ class BookInsertion extends Component {
 
     return (
       <form className="section" onSubmit={this.onSubmit} noValidate>
-        <label className="label">Share your books!</label>
+        <label className="label has-text-justified">Share a book</label>
         <div className="field has-addons">
           <div className="control is-expanded">
             <input
@@ -49,7 +52,7 @@ class BookInsertion extends Component {
               type="text"
               placeholder="The fifth day"
               name="title"
-              value={this.state.book}
+              value={this.state.title}
               onChange={this.onChange}
             />
           </div>
@@ -65,7 +68,7 @@ class BookInsertion extends Component {
               {err}
             </p>
           ))}
-        <div>
+        <div className=" has-text-justified">
           <input
             type="checkbox"
             id="shared"
