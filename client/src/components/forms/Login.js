@@ -24,10 +24,6 @@ class Login extends Component {
     this.props.loginUser(this.state, this.props.history);
   };
 
-  onClick = () => {
-    this.props.history.push("/");
-  };
-
   render() {
     const { errors } = this.props;
     let spreadErr = {};
@@ -102,16 +98,9 @@ class Login extends Component {
                   ))}
               </div>
 
-              <div className="buttons CST_is-opposed">
+              <div className="buttons">
                 <button type="submit" className="button is-success">
                   Log in
-                </button>
-                <button
-                  onClick={this.onClick}
-                  type="button"
-                  className="button is-info"
-                >
-                  Return home
                 </button>
               </div>
 

@@ -8,13 +8,15 @@ class RequestPanel extends Component {
     const bookToGive = {
       createdAt: new Date("1970"),
       bookStatus: { exchangeable: false, applicants: [] },
-      title: "choose a book from the list below",
+      _id: "placeholder_1",
+      title: "First: choose a book from the list below",
       owner: { name: "" }
     };
     const bookToAsk = {
       createdAt: new Date("1970"),
       bookStatus: { exchangeable: false, applicants: [] },
-      title: "select a book to give in exchange",
+      title: "Then: select a book to give in exchange",
+      _id: "placeholder_2",
       owner: { name: "" }
     };
     return (

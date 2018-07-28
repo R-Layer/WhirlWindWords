@@ -40,7 +40,7 @@ class Navbar extends React.Component {
     const { isAuthenticated, location } = this.props;
     const { isActive } = this.state;
     return (
-      <nav className="navbar is-fixed-top is-link" aria-label="main navigation">
+      <nav className="navbar is-fixed-top" aria-label="main navigation">
         <div className="navbar-brand">
           <NavLink className="navbar-item" to="/">
             <span>

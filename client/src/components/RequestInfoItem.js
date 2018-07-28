@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import moment from "moment";
+
 class RequestInfoItem extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,9 @@ class RequestInfoItem extends Component {
     });
   };
 
+  formatDate = dateToFormat =>
+    moment(dateToFormat).format("Do MMMM YYYY HH:mm:ss");
+
   render() {
     const { request } = this.props;
     return (
@@ -27,12 +32,29 @@ class RequestInfoItem extends Component {
         {this.state.active && (
           <div>
             {" "}
-            <div>{request.active ? "You offer:" : "You gave"}</div>
-            <div>{request.bookOut.title}</div>
-            <div>{request.active ? "You would like to have:" : "You had"}</div>
-            <div>{request.bookIn.title}</div>
-            <div>{`Request submitted on ${request.createdAt}`}</div>
-            <div>{`Request accepted on ${request.updatedAt}`}</div>
+            <div className="CST_request-info-label">
+              {request.active ? "You would give:" : "You gave"}
+            </div>
+            <div className="CST_request-info-data">{request.bookOut.title}</div>
+            <div className="CST_request-info-label">
+              {request.active ? "You would have:" : "You had back"}
+            </div>
+            <div className="CST_request-info-data">{request.bookIn.title}</div>
+            <div className="CST_request-info-label">Request submitted on </div>
+            <div className="CST_request-info-data">
+              {this.formatDate(request.createdAt)}
+            </div>
+            {!request.active && (
+              <div>
+                {" "}
+                <div className="CST_request-info-label">
+                  Request accepted on{" "}
+                </div>
+                <div className="CST_request-info-data">
+                  {this.formatDate(request.updatedAt)}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

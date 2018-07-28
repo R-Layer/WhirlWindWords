@@ -177,16 +177,9 @@ class Register extends Component {
                   ))}
               </div>
 
-              <div className="buttons CST_is-opposed">
+              <div className="buttons">
                 <button type="submit" className="button is-success">
                   Sign up
-                </button>
-                <button
-                  type="button"
-                  className="button is-info"
-                  onClick={this.onClick}
-                >
-                  Return home
                 </button>
               </div>
 

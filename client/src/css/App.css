@@ -3,6 +3,11 @@
   height: 100vh;
 }
 
+/* Navbar custom color */
+.navbar.is-fixed-top {
+  background-color: #99d;
+}
+
 /*Navbar custom button-like behaviour*/
 .CST_clickable {
   cursor: pointer;
@@ -72,10 +77,6 @@
   margin-top: 2rem;
 }
 
-.CST_placeholder .CST_book-title {
-  background-color: #ded;
-}
-
 .CST_book-title {
   flex: 1 0 100%;
   background-color: #99d;
@@ -85,6 +86,13 @@
 .CST_book-metadata {
   flex: 1 0 100%;
   padding: 2px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.CST_book-metadata span {
+  margin: 0 1rem;
 }
 
 .CST_book-metadata.CST_stored {
@@ -98,20 +106,13 @@
 .CST_book-metadata.CST_pending {
   background-color: #dd5;
 }
+
+.CST_book-metadata.CST_placeholder {
+  background-color: #d5d5d5;
+}
 /*  Dashboard - request panel  */
-.CST_panel-header {
-  text-align: center;
-  background-color: #811;
-  color: #fff;
-}
-
-.CST_panel-window.CST_disabled {
-  background-color: #ccc;
-}
-
 .CST_panel-footer {
   text-align: center;
-  /*  background-color: #84e140; */
 }
 
 /* Library - book card item */
@@ -139,7 +140,7 @@
 }
 
 .card-header {
-  background-color: #a4a;
+  background-color: #88f;
 }
 
 .CST_title-date {
@@ -149,6 +150,18 @@
   color: #222;
 }
 
+.CST_title-button {
+  background-color: #ff8;
+  color: #222;
+
+  justify-content: center;
+  align-self: center;
+
+  cursor: pointer;
+
+  padding: 0.75rem;
+  border-radius: 5px;
+}
 /*  Library - request info panel*/
 .CST_bordered {
   text-align: center;
@@ -185,6 +198,19 @@
 
 .CST_request-info-item {
   border: 1px solid #aaa;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.CST_request-info-label {
+  text-align: center;
+  margin: 2px 4px;
+  padding: 0.5rem;
+  background-color: #e0e0e0;
+  font: 600 0.75rem Arial;
+}
+.CST_request-info-data {
+  font: italic 500 1rem Times;
 }
 
 .CST_request-title {

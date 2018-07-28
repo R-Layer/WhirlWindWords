@@ -33,7 +33,7 @@ class Book extends React.Component {
           <time className="CST_title-date">
             {moment(bookInfo.createdAt).format("Do MMMM YYYY HH:mm:ss")}
           </time>
-          <span onClick={this.onEdit} className="button is-info">
+          <span onClick={this.onEdit} className="CST_title-button">
             edit
           </span>
         </header>
@@ -78,15 +78,7 @@ class Book extends React.Component {
               <label htmlFor="exchanged"> exchanged</label>
             </div>
           </div>
-          <ul>
-            {bookInfo.bookStatus.applicants.map(applicant => (
-              <li key={applicant._id}>{applicant.name}</li>
-            ))}
-          </ul>
         </div>
-        <footer className="card-footer">
-          <label className="card-footer-item" />
-        </footer>
         <ModalUpdate
           book={bookInfo}
           errors={errors}

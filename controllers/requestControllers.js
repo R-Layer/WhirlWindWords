@@ -28,6 +28,7 @@ exports.requests_create_one = (req, res) => {
               createdRequest.bookIn,
               req.app.locals.userAuth.id
             );
+            books_setPending(createdRequest.bookOut);
             res.status(201).json(createdRequest);
           })
           .catch(err => res.status(500).json(err));
@@ -69,9 +70,16 @@ exports.requests_update_one = (req, res) => {
     .catch(err => res.status(500).json(err));
 };
 
+books_setPending = bookId => {
+  Book.findByIdAndUpdate(bookId, { "bookStatus.pending": true }).then(
+    updBk => updBk
+  );
+};
+
 books_addApplicant = (bookId, userId) => {
   Book.findByIdAndUpdate(bookId, {
-    $push: { "bookStatus.applicants": userId }
+    $push: { "bookStatus.applicants": userId },
+    "bookStatus.pending": true
   }).then(appAdd => appAdd);
 };
 
@@ -84,6 +92,7 @@ books_removeApplicant = (bookId, userId) => {
 books_resetOnExchange = (bookId, userId) => {
   Book.findByIdAndUpdate(bookId, {
     $set: {
+      "bookStatus.pending": false,
       "bookStatus.applicants": [],
       "bookStatus.exchanged": Date.now(),
       owner: userId
