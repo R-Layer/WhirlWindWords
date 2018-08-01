@@ -5,20 +5,21 @@ import {
   failProcess
 } from "../types";
 
-export const registerAction = userData => dispatch => {
+export const registerAction = (userData, history) => dispatch => {
   const requestOptions = {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(userData)
   };
 
-  fetch("/api/users/signup", requestOptions)
+  return fetch("/api/users/signup", requestOptions)
     .then(res => res.json())
     .then(newUser => {
       if (newUser.err) {
         return dispatch({ type: failProcess.ERRORS, err: newUser.err });
       } else {
         dispatch({ type: failProcess.CLEAR });
+        history.push("/");
         return dispatch({ type: registerProcess.SUCCESS, newUser });
       }
     })

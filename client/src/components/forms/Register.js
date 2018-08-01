@@ -25,14 +25,10 @@ class Register extends Component {
     });
   };
 
-  onClick = () => {
-    this.props.history.push("/");
-  };
-
   onSubmit = e => {
     e.preventDefault();
 
-    this.props.registerUser(this.state);
+    this.props.registerUser(this.state, this.props.history);
   };
 
   render() {
@@ -204,7 +200,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  registerUser: userData => dispatch(registerAction(userData))
+  registerUser: (userData, history) =>
+    dispatch(registerAction(userData, history))
 });
 
 export default connect(
